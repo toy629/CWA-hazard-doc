@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《特報整合系統》SOP</title>
+    <style>
+        /* --- 平滑捲動 --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        header h1 {
+            font-size: 24px;
+            color: #005a9c;
+            margin: 0;
+        }
+        nav.top-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav.top-nav li {
+            margin-left: 20px;
+        }
+        nav.top-nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        main {
+            padding: 20px 30px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            margin-top: -1px;
+            border-radius: 5px;
+        }
+        section {
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            margin-top: 20px;
+        }
+        section:first-child {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        h2 {
+            font-size: 22px;
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 8px;
+            margin-top: 10px;
+        }
+        h3 {
+            font-size: 18px;
+            color: #333;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #007bff;
+            padding-left: 10px;
+        }
+        h4 {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+        }
+        p, li {
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        p strong {
+            color: #005a9c;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* --- 圖片基礎樣式 --- */
+        img {
+            max-width: 100%; /* 所有圖片的基礎，確保不超出螢幕 */
+            height: auto;
+            border: none;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        /* --- 單獨大圖的樣式 (限制寬度並置中) --- */
+        .img-standalone-large {
+            max-width: 650px; /* 限制最大寬度為 800px */
+            max-height: 600px; 
+            display: block;
+        }
+
+        /* --- 並排圖片容器 --- */
+        .image-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 10px;
+            max-width: 700px;
+        }
+        
+		.image-container img {
+            object-fit: contain; 
+            height: auto;        
+            max-height: 300px; 
+        }
+
+        /* --- (FIXED) 修正 CSS 語法錯誤 (補上 */) --- */
+        /* 並排圖中的第一張 (左圖) */
+        .image-container img:first-child {
+            flex-basis: 50%;  /* 左圖佔 30% 寬 */
+        }
+        
+        /* 並排圖中的第二張 (右圖) */
+        .image-container img:not(:first-child) {
+            flex-basis: 50%;  /* 右圖佔 50% 寬 */
+        }
+
+        /* --- 表格 --- */
+        /* (FIXED) 您的表格樣式因為上面的 CSS 語法錯誤而失效，修正後這裡會恢復正常 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+        }
+        table img {
+            max-width: 150px; /* 表格內的圖片保持較小 */
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        /* --- Tab 樣式 --- */
+        .tab-container {
+            margin-top: 30px;
+        }
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: 0;
+            background-color: #f0f0f0;
+            color: #555;
+            font-weight: 600;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            position: relative;
+            bottom: -1px;
+        }
+        .tab-button.active {
+            background-color: #ffffff;
+            border-color: #ddd;
+            border-top: 3px solid #005a9c;
+            color: #005a9c;
+        }
+        .tab-content-container {
+            border: 1px solid #ddd;
+            border-top: 0;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 0 0 5px 5px;
+        }
+        .tab-content {
+            display: none; /* Hide all tabs by default */
+        }
+        .tab-content.active {
+            display: block; /* Show only the active tab */
+        }
+
+        /* --- 浮動按鈕 --- */
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .float-btn {
+            display: block;
+            background-color: #005a9c;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+        .float-btn:hover {
+            background-color: #003f70;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+<body id="page-top"> <header>
+        <h1>《特報整合系統》SOP</h1>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="#overview">系統總覽</a></li>
+                <li><a href="#flow">總覽流程</a></li>
+                <li><a href="#definitions">天氣定義</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main>
+            <section id="overview">
+                <h2>1. 系統總覽</h2>
+                <h3>1.1 文件目的</h3>
+                <p>在新舊代系統轉換期間系統眾多且複雜，透過此文件介紹各類特報編輯與發布的工具，期待其可熟悉操作。</p>
+
+                <h3>1.3.2 流程概述</h3>
+                <p>本系統涵蓋「監測」、「編輯」與「發布」三大階段。由 iwfc 啟動監測，經由 GFE 與 HS 製作產品，最後透過 TFE 向外發布。其中要注意的是，目前預報中心產製的特報基礎皆以格點預報或鄉鎮為基礎，概念上則為先編輯特報格點、鄉鎮區域(A1、A2、Warngen)，再透過審核系統(TFE、TFE2)送出。</p>
+                <p>※ GFE 未產製｢熱帶性低氣壓特報｣格點，須直接從 TFE 系統編輯。</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>特報種類</th>
+                            <th>特報格點</th>
+                            <th></th>
+                            <th>TFE系統</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>(解除)豪大雨特報</td>
+                            <td>A1</td>
+                            <td>→</td>
+                            <td>TFE2</td>
+                        </tr>
+                        <tr>
+                            <td>濃霧特報</td>
+                            <td>A1</td>
+                            <td>→</td>
+                            <td>TFE2</td>
+                        </tr>
+                        <tr>
+                            <td>低溫特報</td>
+                            <td>A2(V.18)</td>
+                            <td>→</td>
+                            <td>TFE2</td>
+                        </tr>
+                        <tr>
+                            <td>強風特報</td>
+                            <td>A2(V.23)</td>
+                            <td>→</td>
+                            <td>TFE2</td>
+                        </tr>
+                        <tr>
+                            <td>高溫資訊</td>
+                            <td>A2(V.18)</td>
+                            <td>→</td>
+                            <td>TFE2</td>
+                        </tr>
+                        <tr>
+                            <td>熱帶性低氣壓特報</td>
+                            <td>X</td>
+                            <td></td>
+                            <td>TFE</td>
+                        </tr>
+                        <tr>
+                            <td>長浪即時訊息</td>
+                            <td>X</td>
+                            <td></td>
+                            <td>TFE2</td>
+                        </tr>
+                        <tr>
+                            <td>大雷雨即時訊息</td>
+                            <td>Warngen</td>
+                            <td>→</td>
+                            <td>X</td>
+                        </tr>
+                        <tr>
+                            <td>颱風強風告警</td>
+                            <td>Warngen</td>
+                            <td>→</td>
+                            <td>X</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>1.4 名詞釋義</h3>
+                <ul>
+                    <li>iwfc： Intelligent Weather Forecast Center</li>
+                    <li>GFE： Graphics Generation Editor</li>
+                    <li>HS： Hazard Services</li>
+                    <li>TFE： Text Forecast Editor</li>
+                    <li>HazardBot： 自動化危害指引機器人</li>
+                </ul>
+            </section>
+
+            <section id="flow">
+                <h2>總覽流程</h2>
+                <h3>1.3.1 系統流程圖</h3>
+                <img src="images/image1.png" alt="特報整合系統流程總覽" class="img-standalone-large">
+            </section>
+
+            <section id="definitions">
+                <h2>🗯️ 劇烈天氣定義</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>特報種類</th>
+                            <th>燈號</th>
+                            <th>縮寫</th>
+                            <th>定義</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>低溫特報</td>
+                            <td>黃色燈號</td>
+                            <td>YC.Y</td>
+                            <td>平地最低氣溫攝氏 10 度下。</td>
+                        </tr>
+                        <tr>
+                            <td>低溫特報</td>
+                            <td>橙色燈號(10)</td>
+                            <td>DC.Y</td>
+                            <td>攝氏 10 度 以下且連續 24 小時攝氏 12 度以下。</td>
+                        </tr>
+                        <tr>
+                            <td>低溫特報</td>
+                            <td>橙色燈號(6)</td>
+                            <td>BC.Y</td>
+                            <td>平地最低氣溫攝氏 6 度以下</td>
+                        </tr>
+                        <tr>
+                            <td>低溫特報</td>
+                            <td>紅色燈號</td>
+                            <td>NC.Y</td>
+                            <td>平地氣溫連續 24 小時 攝氏 6 度以下。</td>
+                        </tr>
+                        <tr>
+                            <td>高溫資訊</td>
+                            <td>黃色燈號</td>
+                            <td>YH.Y</td>
+                            <td>氣溫達攝氏 36 度以上</td>
+                        </tr>
+                        <tr>
+                            <td>高溫資訊</td>
+                            <td>橙色燈號(36)</td>
+                            <td>OY.Y</td>
+                            <td>氣溫達攝氏 36 度以 上，且持續 3 天以 上</td>
+                        </tr>
+                        <tr>
+                            <td>高溫資訊</td>
+                            <td>橙色燈號(38)</td>
+                            <td>OR.Y</td>
+                            <td>氣溫達攝氏 38 度以上。</td>
+                        </tr>
+                        <tr>
+                            <td>高溫資訊</td>
+                            <td>紅色燈號</td>
+                            <td>RH.Y</td>
+                            <td>氣溫達攝氏 38 度以 上，且持續 3 天以 上。</td>
+                        </tr>
+                        <tr>
+                            <td>強風特報</td>
+                            <td>黃色燈號</td>
+                            <td>YW.Y</td>
+                            <td>觀測或預測平均風達 6 級以上或陣風達 8 級 以上。</td>
+                        </tr>
+                        <tr>
+                            <td>強風特報</td>
+                            <td>橙色燈號</td>
+                            <td>OW.Y</td>
+                            <td>觀測或預測平均風達 9 級以上或陣風達 11 級 以上。</td>
+                        </tr>
+                        <tr>
+                            <td>強風特報</td>
+                            <td>紅色燈號</td>
+                            <td>RW.Y</td>
+                            <td>觀測或預測平均風達 12 級以上或陣風達 14 級以上。</td>
+                        </tr>
+                        <tr>
+                            <td>豪大雨特報</td>
+                            <td>大雨特報</td>
+                            <td>HR.Y</td>
+                            <td>24 小時累積雨量達 80 毫米以上，或時雨量達 40 毫米以上之降雨現 象。</td>
+                        </tr>
+                        <tr>
+                            <td>豪大雨特報</td>
+                            <td>豪雨特報</td>
+                            <td>EH.Y</td>
+                            <td>24 小時累積雨量達 200 毫米以上，或 3 小時累積雨量達 100 毫米以上 之降雨現象。</td>
+                        </tr>
+                        <tr>
+                            <td>豪大雨特報</td>
+                            <td>大豪雨特報</td>
+                            <td>TR.Y</td>
+                            <td>24 小時累積雨量達 350 毫米以上，或 3 小時累積雨量達 200 毫米以上 之降雨現象。</td>
+                        </tr>
+                        <tr>
+                            <td>豪大雨特報</td>
+                            <td>超大豪雨特報</td>
+                            <td>ET.Y</td>
+                            <td>24 小時累積雨量達 500 毫米以上之降雨現象。</td>
+                        </tr>
+                        <tr>
+                            <td>濃霧特報</td>
+                            <td>濃霧特報</td>
+                            <td></td>
+                            <td>水平能見度低(等)於 200 公尺以下。</td>
+                        </tr>
+                        <tr>
+                            <td>長浪即時訊息</td>
+                            <td>長浪即時訊息</td>
+                            <td></td>
+                            <td>當臺灣地區沿岸資料 浮標觀測到的波浪平均周期大於 8 秒，且 示性波高大(等)於 1.5 公尺時。</td>
+                        </tr>
+                        <tr>
+                            <td>大雷雨即時訊息</td>
+                            <td>大雷雨即時訊息</td>
+                            <td></td>
+                            <td>以伴隨閃電之群聚旺盛對流為一雷雨事件以不同編號區別標示，依對流生命期採不定時更新方式提供最新即時訊息</td>
+                        </tr>
+                        <tr>
+                            <td>強風告警訊息</td>
+                            <td>強風告警訊息</td>
+                            <td></td>
+                            <td>「颱風強風告警」是本署於颱風警報期間針對即將遭受颱風劇烈強風 影響之陸上地區提供之即時告警訊息</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
+            <div class="tab-container">
+                <div class="tab-buttons" id="tab-navigation">
+                    <button class="tab-button active" data-tab="tab-a1-gfe">🌧️ 豪大雨 / 濃霧 (A1 GFE)</button>
+                    <button class="tab-button" data-tab="tab-a2-gfe">🌡️ 高溫 / 低溫 (A2 GFE)</button>
+                    <button class="tab-button" data-tab="tab-a2-hs">🌬️ 強風特報 (A2 HS)</button>
+                    <button class="tab-button" data-tab="tab-a2-hs-storm">⚡ 大雷雨即時訊息 (A2 HS)</button>
+                    <button class="tab-button" data-tab="tab-tfe2">👀 發布流程 (TFE2)</button>
+                </div>
+                
+                <div class="tab-content-container">
+                    <div id="tab-a1-gfe" class="tab-content active">
+                        <h2>🌧️ 編輯流程_豪大雨及濃霧特報_A1 GFE</h2>
+                    
+                        <h3>介面登入方式</h3>
+                        <p>GHG 特報系統使用的是陸地預報的 GFE 程式 (2.5km 解析度 ) ，進入特報介面的方式有兩種：</p>
+                        <ul>
+                            <li>A(左圖) — 在登入 GFE 時點選中間欄位的 Hazards</li>
+                            <li>B(右圖) — 在原為陸地預報或海面預報的操作介面上，按照以下操作順序，畫面出現 Hazard 的參數格點後，即可開始使用！<br>
+                                操作順序：Weather Element→Weather Element Groups → Hazards</li>
+                        </ul>
+                        <div class="image-container">
+                            <img src="images/image2.png" alt="GFE Startup 登入介面">
+                            <img src="images/image3.png" alt="GFE WeatherElement Groups 選單">
+                        </div>
+
+                        <h3>特報格點製作：</h3>
+                        <p>介面上顯示Hazards 特報編輯因子之後，從視窗最上方 Hazards→MakeHazrd_tw 開啟下方頁面製作</p>
+                        <p><strong>Step1: 選擇特報種類:</strong> 先點下方特報種類，其中「豪大雨特報」 選項分為山區、海岸、平地三種地圖提供繪製。</p>
+                        <ul>
+                            <li>&lt; 縣市 &gt; 用以選擇各縣市，豪大雨特報、低溫特報、濃霧特報皆使用之。</li>
+                            <li>&lt; 山區 &gt; 用以選擇各縣市山區，只在豪大雨特報使用。</li>
+                            <li>&lt; 海岸 &gt; 用以選擇恆春半島，只在豪大雨特報使用。</li>
+                        </ul>
+                        <p><strong>Step2: 選擇豪大雨特報的等級：</strong>一次僅能選一種，如需製作多個種類，可於Step5選擇”製 作特報格點”後，再繼續製作下一個等級特報</p>
+                        <p><strong>Step3: 選擇區域：</strong>按下滑鼠左鍵拖曳即可選取區域(亮紅色處)；在亮紅色處點一下即可取消選取 。<br>
+                            注意!! 縣市地圖易漏畫新竹市及嘉義市、山區地圖易遺漏台北市山區及台南市山區,離島地區也較不易選取,建議可將視窗最大化後再行操作。</p>
+                        <p><strong>Step4：選擇時間：</strong>此處顯示的時間為本地時間(L)</p>
+                        <p><strong>Step5：</strong>按下最左邊的「製作特報格點」，本視窗不會關閉,可繼續編輯或疊加其他特報格點。<br>
+                            如不再製作其他特報，可選擇中間的「製作特報格點/關掉」</p>
+                        <img src="images/image4.png" alt="編輯特報區域介面" class="img-standalone-large">
+                        
+                        <p>回到GFE格點編輯畫面，可以看到時間軸上出現不同種類特報的暫存格點，此時仍可在此格點上直接使用”Asign工具”編輯，直到每個種類都符合最終需求。</p>
+                        
+                        <p><strong>Step6：Merge 各類特報格點至Hazards 格點，才算完成喔！</strong></p>
+                        <div class="image-container">
+                            <img src="images/image5.png" alt="GFE格點編輯畫面">
+                            <img src="images/image6.png" alt="Hazards 選單 MergeHazards">
+                        </div>
+
+                        <p><strong>Step7：檢視格點畫面,確認區域無誤後即可按下存檔鍵</strong></p>
+                        <div class="image-container">
+                            <img src="images/image8.png" alt="Save Weather Element 視窗">
+                        </div>
+
+                        <h3>產品產製：</h3>
+                        <p><strong>製作官方格點：</strong>Products → Publish to Official (有做這一步才會被存到官方Official !)</p>
+                        <p>!! 如果沒有執行這個步驟，下一步驟文字轉換器(TF)的”source”(格點資料來源)要記得選”Fcst”</p>
+                        <div class="image-container">
+                            <img src="images/image9.png" alt="Products 選單 Publish to Official">
+                            <img src="images/image10.png" alt="Publish to Official 視窗">
+                        </div>
+
+                        <p><strong>進行文字轉換：</strong>開啟文字轉換器(TF)</p>
+                        <ol>
+                            <li>選擇Products→Hazard → 豪(大)雨特報 Ver.3.0/濃霧特報 Ver.2</li>
+                            <li>選單開啟後，點選齒輪 <img src="images/image11.png" alt="齒輪圖示" style="width: 20px; vertical-align: middle; border: none; margin: 0 2px;"></li>
+                            <li>開始執行程式</li>
+                        </ol>
+
+                        <h4>豪大雨 選單說明如下：</h4>
+                        <img src="images/image12.png" alt="豪大雨特報選單" class="img-standalone-large">
+                        <ul style="list-style-type: none;">
+                            <li>A. 選擇「發布」特報的原因:可複選,預設值若不使用需自行點掉。發「解除」報時不理會此欄位。</li>
+                            <li>B. 選擇「解除」特報的原因:可複選,預設值若不使用需自行點掉。發「發布」報時不理會此欄位。</li>
+                            <li>C. 選擇警語:警語可複選,當發布「解除」報時可不理會此欄位。</li>
+                            <li>D. 選擇是否在概況內文中提及雨量資訊[此功能尚未銜接,預設選NO]</li>
+                            <li>E. 選擇是否顯示警戒區域目前實際觀測雨量[此功能尚未銜接,預設不顯示]</li>
+                            <li>F. 選擇警戒區域描述方式:「概括性」為北中南東的描述;「縣市或連續區域」轉出某縣市以北以南</li>
+                        </ul>
+
+                        <h4>濃霧特報 選單說明如下：</h4>
+                        <img src="images/image13.png" alt="濃霧特報選單" class="img-standalone-large">
+                        <ul style="list-style-type: none;">
+                            <li>A. 選擇影響原因(預設為不選)</li>
+                            <li>B. 選擇警語</li>
+                            <li>C. 選擇概況描述方式</li>
+                            <li>D. 手動輸入觀測資料:發生地區(可複選)、發生時間(格式–hh:mm)、能見度(預設200公尺)</li>
+                        </ul>
+
+                        <h3>進行文字預覽</h3>
+                        <p>以上欄位點選完畢，按OK執行並稍後數秒，標籤變為綠色即成功轉換完畢</p>
+                        <div class="image-container">
+                            <img src="images/image14.png" alt="Formatter Launcher 綠色標籤">
+                            <img src="images/image15.png" alt="標籤顏色說明">
+                        </div>
+
+                        <h3>產品傳送至 TFE2</h3>
+                        <p>請檢查內容是否有誤,若無誤,請按「Transmit」鍵傳送資料至GHGMonitor,
+                        同時會跳出另一視窗(下方右圖)、再按一次「Transmit」將資料送至TFE。</p>
+                        <div class="image-container">
+                            <img src="images/image16.png" alt="Transmit 按鈕 1">
+                        </div>
+
+                        <h3>解除豪大雨特報篇</h3>
+                        <p>濃霧特報不需要發布「解除報」,只要放著到特報結束時間,格點即會消失;豪(大)雨特報解除時須發布「解除報」。</p>
+                        <p>文字轉換程式會自動判斷前後的格點狀態,只要格點是從「有」變「無」,TF就可自動轉出解除報的內容。因此解除特報的流程很簡單:</p>
+                        <p>(使特報格點消失)→(MergeHazards)→_存檔→Publish to Official→_執行Formatter Launcher</p>
+                        <p>使特報格點消失的方法有兩種：</p>
+                        <ul style="list-style-type: none;">
+                            <li>a. 若只有Hazards格點裡只有單種特報,可直接於時間軸上按右鍵 Delete Grid</li>
+                            <li>b. 若同時存在兩種以上特報,可先分離特報格點(SeparateHazard)後,於時間軸上按右鍵 Delete Grid移除要解除的特報種類</li>
+                        </ul>
+                        <p>刪除格點並存檔後，再進入Formatter Launcher，開啟豪大雨特報的選單，只需要選擇解除的欄位，按下OK並送出即可。</p>
+                        <img src="images/image18.png" alt="解除豪大雨特報選單" class="img-standalone-large">
+                        
+                        <h3>其他編輯技巧：</h3>
+                        <h4>改變時間：</h4>
+                        <p>直接在時間軸上處理格點即可。</p>
+                        <ul>
+                            <li><strong>延長特報：</strong> 以滑鼠中鍵點選格點後拖曳至想要的結束時間。</li>
+                        </ul>
+                        <img src="images/image19.png" alt="延長特報時間軸" class="img-standalone-large">
+                        <ul>
+                            <li><strong>縮短特報：</strong> 在格點上欲設定結束時間的位置按右鍵，選取 Split Grid，然後在後面不要的那段格點上按右鍵選 Delete Grid 即可。</li>
+                        </ul>
+                         <div class="image-container">
+                             <img src="images/image20.png" alt="縮短特報選單">
+                        </div>
+                       
+                        <h4>改變區域</h4>
+                        <p>編修特報圖形的方式主要有兩種：</p>
+                        <ol>
+                            <li><strong>在格點上繪圖編輯</strong><br>
+                            可直接在 Hazard 格點 ( 已 Merge) 上編輯，或 Separate Hazard 後，單獨編輯各項特報，最後再合併。<br>
+                            建議編輯工具有： Pencil Tool 、選取區域直接 Assign Value 、或使用 Pickup Value (指定 Value 種類 )</li>
+                            <li><strong>透過特報工具編輯</strong><br>
+                                <ul>
+                                    <li>[ 新增種類 ] 開啟 MakeHazard_tw 編輯，步驟同「製作新特報」一節所述。( 格點會自動 Separate)</li>
+                                    <li>[ 移除單種特報 ] 使用 RemoveHazard ，點選想刪除的特報種類即可，可複選，但不可復原，請小心使用！</li>
+                                    <li>[ 新增或減少區域 ] 執行 SeparateHazard 後，點選想編輯的格點，開啟 MakeHazard_tw ，可在圖中看見現有的區域，直接進行編輯即可。</li>
+                                </ul>
+                        </ol>
+                        <p>※ 特報格點除了用 MakeHazard_tw 製作、選區域 Assign Value 外，也可以直接用手繪製。但要注意的是，格點需佔區域面積的 10% 以上，才會判斷該區有特報發生。</p>
+
+                        <h3>GFE 特報常用的選單</h3>
+                        <h4>特報格點製作：</h4>
+                        <table>
+                            <tr>
+                                <td rowspan="4"><img src="images/image21.png" alt="Hazards 選單"></td>
+                                <td>Hazards</td>
+                                <td>MakeHazard_tw</td>
+                                <td>製作各種特報格點</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>MergeHazards</td>
+                                <td>將不同種類特報格點合併 ( 存檔前必做程序 )</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>RemoveHazard</td>
+                                <td>移除單種特報格點 ( 需在已 Merge 狀態下使用 ),( 無法復原，請小心！ )</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>SeparateHazards</td>
+                                <td>分離各種特報格點</td>
+                            </tr>
+                        </table>
+
+                        <h4>特報產品製作與檢視：</h4>
+                        <table>
+                             <tr>
+                                <td rowspan="3"><img src="images/image22.png" alt="Products 選單"></td>
+                                <td>Product</td>
+                                <td>Publish to Official</td>
+                                <td>將已存檔資訊發布至官方</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Formatter Launcher</td>
+                                <td>特報文字轉換器，將格點資料轉為文字內容</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>GHG Monitor</td>
+                                <td>檢視及監控特報狀態，具有提醒警示功能</td>
+                            </tr>
+                        </table>
+                        
+                        <h4>編輯區域選取：</h4>
+                        <table>
+                            <tr>
+                                <td rowspan="5"><img src="images/image23.png" alt="Edit Areas 選單"></td>
+                                <td>Edit Areas</td>
+                                <td>Island</td>
+                                <td>可選取澎湖、金門、馬祖地區</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>New_Taiwan_County</td>
+                                <td>可選取台灣本島各縣市</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Taiwan_GHG</td>
+                                <td>可選取各縣市之山區或平地</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Taiwan_ Ground&Mountain</td>
+                                <td>可選取台灣本島平地或山區、台灣本島不同區域 ( 一週預報分區 ) 之平地或山區</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>WeekFcstArea</td>
+                                <td>可選取各區域 ( 一週預報分區 )</td>
+                            </tr>
+                        </table>
+
+                        <h3>豪大雨特報分區：</h3>
+                        <p>目前山區使用500公尺為高度分界定義;地形高度≤500m爲平地,地形高度>500m為山區。<br>
+                        台灣分為各縣市之平地、山區，以及北海岸、恆春半島、綠島、蘭嶼。</p>
+                        <ul>
+                            <li>僅有平地沒有山區的縣市：彰化縣、嘉義市、新竹市</li>
+                            <li>「北海岸」包括:淡水區、三芝區、石門區、金山區、萬里區、瑞芳區、貢寮區、雙溪區</li>
+                            <li>「恆春半島」包括:車城鄉、牡丹鄉、滿洲鄉、恆春鎮、獅子鄉、枋山鄉</li>
+                        </ul>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>縣市</th>
+                                    <th>平地</th>
+                                    <th>山區</th>
+                                    <th>特殊地理區包含鄉鎮區</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>臺北市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>新北市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>桃園市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>新竹市</td><td>V</td><td></td><td></td></tr>
+                                <tr><td>新竹縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>基隆市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>宜蘭縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>苗栗縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>臺中市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>彰化縣</td><td>V</td><td></td><td></td></tr>
+                                <tr><td>南投縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>雲林縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>嘉義市</td><td>V</td><td></td><td></td></tr>
+                                <tr><td>嘉義縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>臺南市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>高雄市</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>屏東縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>花蓮縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>臺東縣</td><td>V</td><td>V</td><td></td></tr>
+                                <tr><td>北海岸</td><td>x</td><td>x</td><td>淡水區、三芝區、石門區、金山區、萬里區、瑞芳區、貢寮區、雙溪區</td></tr>
+                                <tr><td>恆春半島</td><td>x</td><td>x</td><td>車城鄉、牡丹鄉、滿洲鄉、恆春鎮、獅子鄉、枋山鄉</td></tr>
+                                <tr><td>綠島</td><td>x</td><td>x</td><td></td></tr>
+                                <tr><td>蘭嶼</td><td>x</td><td>x</td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="tab-a2-gfe" class="tab-content">
+                        <h2>🌡️ 編輯流程_高溫資訊、低溫特報</h2>
+                    
+                        <h3>開啟A2 (18版)</h3>
+                        <p>於即時席對面電腦( 各席位A2電腦版本 )開啟 A2(18版)介面，選擇Hazards_config</p>
+                        <img src="images/image24.png" alt="A2 GFE Startup 介面" class="img-standalone-large">
+
+                        <h3>編輯格點</h3>
+                        <h4>方法一：使用工具呼叫HazardBot</h4>
+                        <p><strong>1. 開啟工具</strong><br>
+                        點選介面最上方 Hazards → HazardGuidanceAPITool</p>
+                        <img src="images/image25.png" alt="A2 GFE Hazards 選單" class="img-standalone-large">
+                        
+                        <p><strong>2. 設定並執行工具</strong><br>
+                        於左上角頁籤選擇欲發布的特報種類<br>
+                        調整設定值產出特報格點(預設為最常使用的門檻及該時間對應報別時間區間)<br>
+                        工具執行期間，右下角會呈現 running Hazard Tool 字樣，稍待幾秒後完成製作</p>
+                        <div class="image-container">
+                            <img src="images/image26.png" alt="特報指引API - 低溫特報">
+                            <img src="images/image27.png" alt="特報指引API - 高溫資訊">
+                        </div>
+                        <p>執行工具(Run 或 Run/Dismiss，後者會順便關掉工具)，產生各燈號時間及區域。<br>
+                        * 目前工具產製出的各燈號區段是一樣的，取最早與最晚出現的時間</p>
+                        
+                        <p><strong>3. 完成格點</strong><br>
+                        確定燈號時間與區域之後，點選Hazards → MergeHazard<br>
+                        存檔(中間圖示磁碟片圖案)<br>
+                        發布成官方格點，Products → Publish to Official</p>
+                        <div class="image-container">
+                            <img src="images/image28.png" alt="A2 GFE 存檔與合併">
+                        </div>
+
+                        <h4>方法二：手繪區域(通常用在HazardBot無法使用的時候)</h4>
+                        <p><strong>1. 選擇區域</strong><br>
+                        從EditArea選擇要發布特報的區域，下圖以鄉鎮清單為例<br>
+                        如要多選，工具欄設定切換為”聯集”(下圖右)</p>
+                        <div class="image-container">
+                            <img src="images/image29.png" alt="EditArea 選單">
+                            <img src="images/image30.png" alt="聯集工具">
+                        </div>
+
+                        <p><strong>2. 設定時間</strong><br>
+                        區域確定之後，先在時間編輯區內製造一個空格點，在格點上按滑鼠中鍵往右拉，可延長格點時間</p>
+                        <img src="images/image31.png" alt="Create From Scratch" class="img-standalone-large">
+
+                        <p><strong>3. 設定特報種類</strong><br>
+                        在地圖最上面按右鍵，可叫出”Set Pickup Value ”選單<br>
+                        選擇要發布的特報及燈號，按下Assign，前面選取的區域就會被指定為該特報種類。<br>
+                        用這個方法不必合併特報格點，但要注意每一個鄉鎮，同一種特報只能存在一個燈號喔!</p>
+                        <div class="image-container">
+                            <img src="images/image32.png" alt="Set Pickup Value 選單">
+                            <img src="images/image33.png" alt="Assign Value">
+                        </div>
+
+                        <p><strong>4. 存檔(藍色磁碟片圖案)並”Publish to Official”完成官方格點</strong></p>
+                        <div class="image-container">
+                            <img src="images/image34.png" alt="Publish to Official">
+                            <img src="images/image35.png" alt="存檔">
+                        </div>
+
+                        <h3>製作產品</h3>
+                        <p><strong>1. 開啟文字轉換器</strong><br>
+                        叫出文字轉換器 (Products → Formatter Launcher...)</p>
+                        <img src="images/image36.png" alt="Formatter Launcher 選單" class="img-standalone-large">
+
+                        <p><strong>2. 選擇要轉換的特報種類</strong><br>
+                        低溫特報：低溫特報鄉鎮版本 ver4.<br>
+                        高溫資訊：高溫資訊鄉鎮版本 ver2.</p>
+                        <img src="images/image37.png" alt="選擇特報種類" class="img-standalone-large">
+
+                        <p><strong>3. 進行格點轉文字</strong><br>
+                        叫出選單之後，按下畫面上的齒輪，出現設定選單<br>
+                        文字轉換完成後，確認區域及描述無誤，即可按”Save Draft”→ Transmit(下圖左下角藍色方框) ，稍等幾秒後完成傳送</p>
+                        <img src="images/image38.png" alt="格點轉文字視窗" class="img-standalone-large">
+
+                        <h3>發布產品</h3>
+                        <p>檔案傳送之後，TFE2 即可讀取對應的特報，可在TFE2調整文字並發布產品。<br>
+                        TFE2 編輯流程請參考：<a href="#" class="tab-link" data-tab="tab-tfe2">發布流程_TFE2</a> (點擊可切換頁籤)</p>
+                    </div>
+
+                    <div id="tab-a2-hs" class="tab-content">
+                        <h2>🌬️ 編輯流程_強風特報</h2>
+                    
+                        <h3>開啟 A2 Hazard Services 介面</h3>
+                        <p>依照正常程序<a href="https://sites.google.com/mfc.cwb.gov.tw/fies/AWIPS2-Manual-1/AWIPS2-Manual-2?authuser=0">(點這裡看S.O.P.)</a>開啟AWIPS2後，確認自己所在site為「CWA」(而非CWAM，確認方式文件中的<a href="https://sites.google.com/mfc.cwb.gov.tw/fies/AWIPS2-Manual-1/AWIPS2-Manual-3?authuser=0">環境確認</a>」)<br>
+                        在AWIPS2 介面上點選 H 圖示，開啟Hazard Services，並在下方的icon 選擇對應特報 <img src="images/image39.png" alt="WIND icon" style="width: 30px; vertical-align: middle; border: none; margin: 0 2px;"> (強風特報)，叫出對應的地圖、製作特報的設定值。</p>
+                        <img src="images/image40.png" alt="A2 HS 介面" class="img-standalone-large">
+
+                        <h3>前置工作</h3>
+                        <p><strong>清空事件列表，刪除介面上還存在的事件</strong><br>
+                        <strong>操作：</strong>左鍵點選事件(變成藍底，可按著Shift複選)，一次處理多個事件狀態</p>
+                        <ul>
+                            <li><strong>情境一：</strong>還未發布過的用"Delete This"或"Delete 1 Selected"刪除，如果一次選擇很多，則會出現"Delete All"、"Delect 2 Seleted"...</li>
+                        </ul>
+                        <img src="images/image41.png" alt="刪除事件選單" class="img-standalone-large">
+                        <ul>
+                            <li><strong>情境二：</strong>已發布事件(ISSUED)<br>
+                            需要先"End"，並依照「發布產品流程」結束此事件，按右鍵可另開分頁檢視圖檔</li>
+                        </ul>
+                        <div class="image-container">
+                            <img src="images/image42.png" alt="結束事件選單">
+                            <img src="images/image43.png" alt="發布產品流程">
+                        </div>
+
+                        <h3>製作特報事件</h3>
+						<p><strong>可選擇用HazardBot自動產製或手繪</strong><br>
+                        <p><strong>方法一：用HazardBot 產製各燈號事件</strong><br>
+                        點選鐵鎚圖案旁邊的小箭頭，點選對應的工具 (確定是否有先切換到該特報的設定)</p>
+                        <img src="images/image44.png" alt="強風特報指引工具" class="img-standalone-large">
+                        <p>執行之後產生特報格點，每一個燈號為一個事件，並可從AlertViz(下圖)中讀取API執行的細節</p>
+                        <div class="image-container">
+                            <img src="images/image45.png" alt="HazardBot 產生格點">
+                            <img src="images/image46.png" alt="API 讀取細節">
+                        </div>
+
+                        <p><strong>方法二：框選特報區域(影片連結)</strong></p>
+                        <img src="images/image47.png" alt="框選區域步驟1" class="img-standalone-large">
+                        <img src="images/image48.png" alt="框選區域步驟2" class="img-standalone-large">
+                        <img src="images/image49.png" alt="框選區域步驟3" class="img-standalone-large">
+
+                        <h3>微調特報事件之影響時間、範圍</h3>
+                        <p><strong>調整時間：</strong><br>
+                        直接鍵入數字無法作用時，可用scroll bar拉動調整</p>
+                        <img src="images/image50.png" alt="調整時間" class="img-standalone-large">
+                        
+                        <p><strong>調整區域</strong><br>
+                        ‼️目前在表單上調整區域時只會調整產品，無法回饋於地圖上</p>
+                        <img src="images/image51.png" alt="調整區域" class="img-standalone-large">
+
+                        <h3>產品(xml, json)產製</h3>
+                        <p>前一步驟按下Preview之後，開啟描述選單，選擇 Continue 之後可顯示Json及Xml預覽畫面，並可於此介面進入發布流程，issue之後就會傳送到TFE2</p>
+                        <div class="image-container">
+                            <img src="images/image52.png" alt="強風特報描述選單">
+                        </div>
+                        <img src="images/image53.png" alt="產品預覽與發布" class="img-standalone-large">
+                    </div>
+
+                    <div id="tab-a2-hs-storm" class="tab-content">
+                        <h2>⚡ 編輯流程_大雷雨即時訊息</h2>
+                    
+                        <h3>開啟 A2 Hazard Services 介面</h3>
+                        <p>依照正常程序開啟AWIPS2後，確認自己所在site為「CWA」(而非CWAM，確認方式文件中的「環境確認」)<br>
+                        在AWIPS2 介面上點選 H 圖示，開啟Hazard Services，並在下方的icon 選擇對應特報 <img src="images/image54.png" alt="STORM icon" style="width: 30px; vertical-align: middle; border: none; margin: 0 2px;">。</p>
+                        <img src="images/image40.png" alt="A2 HS 介面 - 大雷雨" class="img-standalone-large">
+
+                        <h3>繪製發布區域</h3>
+                        <p><strong>疊加參考指引：</strong>可疊加雷達回波及Scan 相關資訊，介面操作與D2D操作方式相同</p>
+                        <p><strong>繪製區域：</strong><br>
+                        開啟HS選單之後，在下方的*旁箭頭可選擇繪製方式(建議使用Polygon或freehand Polygan，如使用Polygan最後一個點要按右鍵結束)。</p>
+                        <img src="images/image56.png" alt="選擇繪製方式" class="img-standalone-large">
+                        <p>圈選後跳出選單，選擇「大雷雨即時訊息」，選擇後會出現下圖右的表單，在此可設定此事件的延續時間(Duration)。</p>
+                        <img src="images/image57.png" alt="大雷雨事件表單" class="img-standalone-large">
+                        <p>區域選單分為鄉鎮與沿海的頁籤，分別顯示陸地與沿海區域；可用於微調，但要注意Polygon可能會不一致，因此建議還是要回到地圖上調整。</p>
+                        <img src="images/image58.png" alt="大雷雨區域選單" class="img-standalone-large">
+                        <p>按下選單下方的”Preview”後跳出文字訊息選單，須分別選擇”陸地”與”沿海”的描述。<br>
+                        選擇「致災性短延時強降雨(PWS)」及「颱風強風告警(PWS)」會自動勾選”Publish with CB”(發布細胞廣播)，可取消勾選。<br>
+                        在文字訊息選單右下角點選Okay後，則進入產品預覽畫面。</p>
+                        <img src="images/image59.png" alt="陸海空大雷雨即時訊息選單" class="img-standalone-large">
+
+                        <h3>預覽產品</h3>
+                        <p><strong>預覽畫面&lt;一&gt;：</strong>顯示發送訊息內的描述，以及是否發布CB</p>
+                        <img src="images/image60.png" alt="預覽畫面1" class="img-standalone-large">
+                        <p><strong>預覽畫面&lt;二&gt;：</strong>預覽畫面&lt;一&gt;按下”Continue後”，轉出 Cap 檔發布的內容，可以再檢查一次區域</p>
+                        <img src="images/image61.png" alt="預覽畫面2 - CAP 檔" class="img-standalone-large">
+
+                        <h3>發布產品</h3>
+                        <p>預覽CAP檔案之後，按下視窗最下方的Issue/Publish，跳出下圖左側&lt;STOP&gt;畫面，在這個畫面按下藍色按鈕 ”Issue/Publish” 就會正式發送到官網!!<br>
+                        如果還需要調整，按Cancel回到編輯介面。<br>
+                        注意發布的標號是否跟Console一致</p>
+                        <img src="images/image62.png" alt="發布產品確認視窗" class="img-standalone-large">
+
+                        <h3>其他操作技巧</h3>
+                        <p>未發布過的特報都可以點選後(變成藍底才表示有選到!)，按右鍵"Delete This"或"Delete 1 Selected"刪除，如果一次選擇很多，則會出現"Delete All"、"Delect 2 Seleted"...，刪除方式與其他特報相同</p>
+                        <img src="images/image41.png" alt="刪除事件選單" class="img-standalone-large">
+                        <p>已發布過的特報會呈現在介面上，但無法再次編輯</p>
+                    </div>
+
+                    <div id="tab-tfe2" class="tab-content">
+                        <h2>👀 發布流程_TFE2</h2>
+                    
+                        <h3>開啟方式</h3>
+                        <ul>
+                            <li>網址(署內安內外接可開啟)： tfe.cwa.gov.tw</li>
+                            <li>登入方式：預報中心LDAP</li>
+                        </ul>
+
+                        <h3>介面說明</h3>
+                        <ol>
+                            <li>左上角選擇”特報分類”，點選欲發布的特報</li>
+                            <li>預設開啟時為 AWIPS系統傳送的檔案</li>
+                        </ol>
+                        <img src="images/image64.png" alt="TFE2 介面說明" class="img-standalone-large">
+                        <p>如要匯入其他席位存檔資料，須點選右上角”載入存檔資料”</p>
+                        <img src="images/image65.png" alt="TFE2 載入存檔資料" class="img-standalone-large">
+
+                        <h3>確認產品無誤</h3>
+                        <p>確認發布時間、有效時間、特報內容、特報區域</p>
+                        <img src="images/image66.png" alt="TFE2 確認產品" class="img-standalone-large">
+                        <img src="images/image67.png" alt="TFE2 確認區域" class="img-standalone-large">
+
+                        <h3>儲存資料(綠色按鈕)</h3>
+                        <h3>發布產品</h3>
+                        <ol>
+                            <li>操作介面右側</li>
+                            <li>儲存資料(綠色按鈕) ，存檔後發布產品按鈕會變成藍色</li>
+                            <li>發布產品</li>
+                            <li>至官網確認產品上架並呈現正確資料</li>
+                        </ol>
+                        <img src="images/image68.png" alt="TFE2 發布介面" class="img-standalone-large">
+                    </div>
+
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <div class="floating-nav">
+        <a href="#tab-navigation" class="float-btn" title="切換至單元頁籤">切換單元</a>
+        <a href="#page-top" class="float-btn" title="回到網頁頂端">回到頂端</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button, .tab-link');
+            
+            function switchTab(tabId) {
+                // Hide all tab contents
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Deactivate all tab buttons
+                const allButtons = document.querySelectorAll('.tab-button');
+                allButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                // Show the target tab content
+                const targetContent = document.getElementById(tabId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+
+                // Activate the target tab button
+                const targetButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+                if (targetButton) {
+                    targetButton.classList.add('active');
+                }
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior if it's an <a> tag
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

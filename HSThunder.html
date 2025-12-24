@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大雷雨即時訊息 - 預報員作業 SOP</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #005a9c;
+            border-bottom: 3px solid #005a9c;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007bff;
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 22px;
+            background-color: #f8f9fa;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* 圖片樣式優化 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: block;
+        }
+
+        .img-standalone-large {
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .note {
+            background-color: #e7f5ff;
+            border-left: 4px solid #005a9c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .note strong {
+            color: #005a9c;
+        }
+
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #c7254e;
+            font-family: monospace;
+            font-size: 0.95em;
+        }
+
+        /* 步驟強調 */
+        .step {
+            display: inline-block;
+            background-color: #005a9c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>⚡ 大雷雨即時訊息作業 SOP</h1>
+
+        <div class="note">
+            <strong>核心摘要：</strong> 此作業流程使用 A2 HS (Hazard Services) 系統進行編輯，最終直接由 HS 系統發布，不經過 TFE2。
+        </div>
+
+        <h2>1. 開啟 A2 Hazard Services 介面</h2>
+        <p>依照正常程序開啟 AWIPS2 後，請先確認自己所在的 Site 為 <code>CWA</code>（而非 CWAM）。</p>
+        <p>在 AWIPS2 介面上點選 <strong>H</strong> 圖示，開啟 Hazard Services，並在下方的 icon 選擇對應特報：<br>
+        <img src="images/image54.png" alt="STORM icon" style="width: 30px; vertical-align: middle; border: none; margin: 0 5px;"> <strong>(STORM)</strong> 圖示。</p>
+        
+        <img src="images/image40.png" alt="A2 HS 介面 - 大雷雨" class="img-standalone-large">
+
+        <h2>2. 繪製發布區域與設定</h2>
+        
+        <h3>2.1 疊加參考指引</h3>
+        <p>可疊加雷達回波及 Scan 相關資訊，介面操作方式與 D2D 相同。</p>
+
+        <h3>2.2 繪製區域</h3>
+        <p>開啟 HS 選單之後，在下方的 <code>*</code> 旁箭頭可選擇繪製方式。</p>
+        <ul>
+            <li><span class="step">建議</span> 使用 <strong>Polygon</strong> 或 <strong>Freehand Polygon</strong> 工具。</li>
+            <li><span class="step">注意</span> 使用 Polygon 時，最後一個點要按 <strong>滑鼠右鍵</strong> 結束繪製。</li>
+        </ul>
+        <img src="images/image56.png" alt="選擇繪製方式" class="img-standalone-large">
+
+        <h3>2.3 設定事件屬性</h3>
+        <p>圈選區域後會跳出選單，請執行以下步驟：</p>
+        <ol>
+            <li>選擇「大雷雨即時訊息」。</li>
+            <li>在跳出的表單中，設定此事件的 <strong>延續時間 (Duration)</strong>。</li>
+            <li>點擊 <strong>Preview</strong> 進入下一步。</li>
+        </ol>
+        <img src="images/image57.png" alt="大雷雨事件表單" class="img-standalone-large">
+
+        <div class="note">
+            <strong>微調區域技巧：</strong> 區域選單分為「鄉鎮」與「沿海」頁籤，可用於微調。但因 Polygon 可能會不一致，建議優先直接在 <strong>地圖上</strong> 調整 Polygon。
+            <br><img src="images/image58.png" alt="大雷雨區域選單" style="max-width: 600px;">
+        </div>
+
+        <h3>2.4 設定細胞廣播 (CB)</h3>
+        <p>按下 Preview 後會跳出文字訊息選單：</p>
+        <ul>
+            <li>須分別選擇 <strong>「陸地」</strong> 與 <strong>「沿海」</strong> 的描述文字。</li>
+            <li><strong>自動勾選機制：</strong> 若選擇「致災性短延時強降雨 (PWS)」或「颱風強風告警 (PWS)」，系統會 <strong>自動勾選</strong> <code>Publish with CB</code> (發布細胞廣播)。</li>
+            <li>若判斷無需發送，可手動取消勾選。</li>
+        </ul>
+        <img src="images/image59.png" alt="陸海空大雷雨即時訊息選單" class="img-standalone-large">
+
+        <h2>3. 預覽產品</h2>
+        
+        <h3>預覽畫面 &lt;一&gt;</h3>
+        <p>顯示即將發送的文字訊息描述，以及是否發布 CB。確認無誤後點擊 <code>Okay</code>。</p>
+        <img src="images/image60.png" alt="預覽畫面1" class="img-standalone-large">
+
+        <h3>預覽畫面 &lt;二&gt;</h3>
+        <p>按下 <code>Continue</code> 後，系統會轉出 <strong>CAP 檔</strong> 的最終內容。請在此步驟再次檢核 <strong>發布區域</strong> 與 <strong>時間</strong>。</p>
+        <img src="images/image61.png" alt="預覽畫面2 - CAP 檔" class="img-standalone-large">
+
+        <h2>4. 正式發布</h2>
+        <p>預覽 CAP 檔案確認無誤後，按下視窗最下方的 <strong>Issue/Publish</strong> 按鈕。</p>
+        <ul>
+            <li>系統會跳出最終確認視窗（如下圖左側 &lt;STOP&gt; 畫面）。</li>
+            <li>按下藍色按鈕 <strong>Issue/Publish</strong>，特報即正式發送到官網。</li>
+            <li><span class="step">重要</span> 發布後請確認標號是否跟 Console 一致。</li>
+        </ul>
+        <img src="images/image62.png" alt="發布產品確認視窗" class="img-standalone-large">
+
+        <h2>5. 其他操作：刪除事件</h2>
+        <p>若需刪除尚未發布的事件（例如畫錯或練習）：</p>
+        <ol>
+            <li>點選該事件（確認變為藍底，表示已選取）。</li>
+            <li>按右鍵選擇 <code>Delete This</code> 或 <code>Delete 1 Selected</code>。</li>
+        </ol>
+        <p><em>註：已發布過的特報會保留在介面上，但無法再次編輯。</em></p>
+        <img src="images/image41.png" alt="刪除事件選單" style="max-width: 400px;">
+
+    </div>
+
+</body>
+</html>
