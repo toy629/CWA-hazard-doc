@@ -125,21 +125,8 @@
         /* 1. 原本的圖片樣式加上 transition (轉場動畫) */
         .img-standalone-large {
             max-width: 650px; /* 您原本設定的寬度 */
-            display: block;
             margin: 0 auto;
             height: auto;
-    
-            /* 關鍵字 1：設定動畫時間與速度曲線，0.3s 代表 0.3 秒完成 */
-            transition: transform 0.3s ease; 
-        }
-
-        /* 2. 加上 :hover 代表「滑鼠移過去時」的狀態 */
-        .img-standalone-large:hover {
-            /* 關鍵字 2：放大比例，1.2 代表放大至原圖的 1.2 倍 (120%) */
-            transform: scale(1.2); 
-    
-            /* (選用) 加上一點陰影，可以讓圖片浮起來的感覺更逼真 */
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* --- 並排圖片容器 --- */
@@ -261,7 +248,30 @@
             background-color: #003f70;
             color: #ffffff;
         }
+		/* --- 點擊全螢幕放大功能 --- */
+        /* 1. 設定可以放大的圖片滑鼠游標（變成放大鏡） */
+        .zoomable-img {
+            cursor: zoom-in;
+            transition: all 0.3s ease;
+        }
 
+        /* 2. 當圖片被點擊加上 .fullscreen 類別時的「全螢幕」樣式 */
+        .zoomable-img.fullscreen {
+            position: fixed;       /* 固定定位，脫離原本版面 */
+            top: 0;
+            left: 0;
+            width: 100vw;          /* 寬度填滿螢幕 */
+            height: 100vh;         /* 高度填滿螢幕 */
+            max-width: 100vw !important;  /* 強制覆蓋原本的限制 */
+            max-height: 100vh !important; /* 強制覆蓋原本的限制 */
+            object-fit: contain;   /* 關鍵：保持圖片原本比例，不變形地縮放 */
+            background-color: rgba(0, 0, 0, 0.95); /* 深黑色半透明背景 */
+            z-index: 99999;        /* 確保圖片在全網頁的最上層 */
+            margin: 0 !important;
+            padding: 0;
+            border-radius: 0;
+            cursor: zoom-out;      /* 放大後的游標變成縮小鏡 */
+        }		
     </style>
 </head>
 <body id="page-top"> <header>
@@ -958,7 +968,7 @@
                             <li>左上角選擇”特報分類”，點選欲發布的特報</li>
                             <li>預設開啟時為 AWIPS系統傳送的檔案</li>
                         </ol>
-                        <img src="images/image64.png" alt="TFE2 介面說明" class="img-standalone-large">
+                        <img src="images/image64.png" alt="TFE2 介面說明" class="img-standalone-large zoomable-img">
                         <p>如要匯入其他席位存檔資料，須點選右上角”載入存檔資料”</p>
                         <img src="images/image65.png" alt="TFE2 載入存檔資料" class="img-standalone-large">
 
@@ -991,39 +1001,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // === 原本的頁籤切換功能 ===
             const tabButtons = document.querySelectorAll('.tab-button, .tab-link');
-            
             function switchTab(tabId) {
-                // Hide all tab contents
                 const tabContents = document.querySelectorAll('.tab-content');
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-
-                // Deactivate all tab buttons
+                tabContents.forEach(content => { content.classList.remove('active'); });
                 const allButtons = document.querySelectorAll('.tab-button');
-                allButtons.forEach(button => {
-                    button.classList.remove('active');
-                });
-
-                // Show the target tab content
+                allButtons.forEach(button => { button.classList.remove('active'); });
                 const targetContent = document.getElementById(tabId);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-
-                // Activate the target tab button
+                if (targetContent) { targetContent.classList.add('active'); }
                 const targetButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
-                if (targetButton) {
-                    targetButton.classList.add('active');
-                }
+                if (targetButton) { targetButton.classList.add('active'); }
             }
-
             tabButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent default link behavior if it's an <a> tag
+                    event.preventDefault();
                     const tabId = this.getAttribute('data-tab');
                     switchTab(tabId);
+                });
+            });
+
+            // === 新增：點擊圖片全螢幕放大/縮小功能 ===
+            const zoomImages = document.querySelectorAll('.zoomable-img');
+            zoomImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    this.classList.toggle('fullscreen'); // 有 fullscreen 就移除，沒有就加上
                 });
             });
         });
