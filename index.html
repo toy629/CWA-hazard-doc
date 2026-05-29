@@ -122,10 +122,24 @@
         }
 
         /* --- 單獨大圖的樣式 (限制寬度並置中) --- */
+        /* 1. 原本的圖片樣式加上 transition (轉場動畫) */
         .img-standalone-large {
-            max-width: 800px; /* 限制最大寬度為 800px */
-            max-height: auto; 
+            max-width: 650px; /* 您原本設定的寬度 */
             display: block;
+            margin: 0 auto;
+            height: auto;
+    
+            /* 關鍵字 1：設定動畫時間與速度曲線，0.3s 代表 0.3 秒完成 */
+            transition: transform 0.3s ease; 
+        }
+
+        /* 2. 加上 :hover 代表「滑鼠移過去時」的狀態 */
+        .img-standalone-large:hover {
+            /* 關鍵字 2：放大比例，1.2 代表放大至原圖的 1.2 倍 (120%) */
+            transform: scale(1.2); 
+    
+            /* (選用) 加上一點陰影，可以讓圖片浮起來的感覺更逼真 */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* --- 並排圖片容器 --- */
